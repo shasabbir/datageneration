@@ -13,7 +13,7 @@ skipdate2_obj = datetime.datetime.strptime(skipdate2, '%Y-%m-%d')
 enddate_obj = datetime.datetime.strptime(enddate, '%Y-%m-%d')
 
 url = 'https://api.bscl.gov.bd/api/dayparts/save'
-url = 'https://jsonplaceholder.typicode.com/posts'
+#url = 'https://jsonplaceholder.typicode.com/posts'
 
 range = [30, 15]
 type = ['', 'stb', 'ott']
