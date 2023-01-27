@@ -12,7 +12,7 @@ enddate_obj = datetime.datetime.strptime(enddate, '%Y-%m-%d')
 skipdates = ['2023-01-24', '2023-01-26', '2023-01-23']
 
 url = 'https://api.bscl.gov.bd/api/dayparts/save'
-#url = 'https://jsonplaceholder.typicode.com/postsmmm'
+url = 'https://jsonplaceholder.typicode.com/postsmmm'
 #sleep(200)
 range = [30, 15]
 type = ['', 'stb', 'ott']
