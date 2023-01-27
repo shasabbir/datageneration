@@ -1,25 +1,24 @@
 import datetime
 import requests
+import json
 from time import sleep
 
 date_time_str = '2023-01-23'
-
-date_time_obj = datetime.datetime.strptime(date_time_str, '%Y-%m-%d')
 enddate = '2023-01-28'
-skipdate1 = '2023-01-24'
-skipdate2 = '2023-01-26'
-skipdate1_obj = datetime.datetime.strptime(skipdate1, '%Y-%m-%d')
-skipdate2_obj = datetime.datetime.strptime(skipdate2, '%Y-%m-%d')
+date_time_obj = datetime.datetime.strptime(date_time_str, '%Y-%m-%d')
+
+rev =True
 enddate_obj = datetime.datetime.strptime(enddate, '%Y-%m-%d')
+skipdates = ['2023-01-24', '2023-01-26', '2023-01-23']
 
 url = 'https://api.bscl.gov.bd/api/dayparts/save'
-#url = 'https://jsonplaceholder.typicode.com/posts'
-
+url = 'https://jsonplaceholder.typicode.com/posts'
+sleep(200)
 range = [30, 15]
 type = ['', 'stb', 'ott']
 while date_time_obj < enddate_obj:
     #skip >
-    if date_time_obj == skipdate1_obj or date_time_obj == skipdate2_obj:
+    if str(date_time_obj)[0:10] in skipdates:
         ndate = date_time_obj + datetime.timedelta(days=1)
         print(str(ndate)[0:10])
         date_time_obj = ndate
@@ -29,18 +28,38 @@ while date_time_obj < enddate_obj:
 
         for t in type:
             #skip >
-            if (str(date_time_obj)[0:10] == '2023-01-23' and r == 30 and (t == '' or t == 'stb')):
-                continue
+            # if str(date_time_obj)[0:10] == '2023-01-23'  and( (r == 15 and (t == '' or t == 'stb')) or (r == 30 and (t == '' or t == 'ott' or t == 'stb'))):
+            #     continue
             #>skip
             myobj = {"range": r, "type": t, "start": str(date_time_obj)[0:10]}
+            f = open("file.txt", "r")
+            history = json.loads(f.read())
+            
+            if myobj in history:
+                print("exists")
+                continue
+            else:
+                f = open("file.txt", "w")
+                history.append(myobj)
+                f.write(json.dumps(history))
+                f.close()
+            print(myobj)
             try:
-                print(myobj)
+                
                 x = requests.post(url, json=myobj,timeout=3)
             except:
-                print("sleeping for 16 minutes")
-                sleep(800)
+                print("slept 16 minutes")
+                sleep(1000)
             #print(x.text)
     ndate = date_time_obj + datetime.timedelta(days=1)
     print(str(ndate)[0:10])
     date_time_obj = ndate
+    if str(ndate)[0:10]=='2023-01-28' and rev:   
+        date_time_str = '2023-01-02'
+
+        date_time_obj = datetime.datetime.strptime(date_time_str, '%Y-%m-%d')
+        enddate = '2023-01-20'
+
+        enddate_obj = datetime.datetime.strptime(enddate, '%Y-%m-%d')
+    
 print ("Done")
