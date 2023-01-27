@@ -27,7 +27,7 @@ while date_time_obj < enddate_obj:
 
             myobj = {"range": r, "type": t, "start": str(date_time_obj)[0:10]}
             print(myobj)
-            x = requests.post(url, json=myobj, timeout=3600)
+            x = requests.post(url, json=myobj)#, timeout=3600)
             #print(x.text)
     ndate = date_time_obj + datetime.timedelta(days=1)
     print(str(ndate)[0:10])
