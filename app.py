@@ -12,8 +12,8 @@ enddate_obj = datetime.datetime.strptime(enddate, '%Y-%m-%d')
 skipdates = ['2023-01-24', '2023-01-26', '2023-01-23']
 
 url = 'https://api.bscl.gov.bd/api/dayparts/save'
-url = 'https://jsonplaceholder.typicode.com/posts'
-sleep(200)
+url = 'https://jsonplaceholder.typicode.com/postsmmm'
+#sleep(200)
 range = [30, 15]
 type = ['', 'stb', 'ott']
 while date_time_obj < enddate_obj:
@@ -36,7 +36,7 @@ while date_time_obj < enddate_obj:
             history = json.loads(f.read())
             
             if myobj in history:
-                print("exists")
+                print("already done")
                 continue
             else:
                 f = open("file.txt", "w")
@@ -47,9 +47,11 @@ while date_time_obj < enddate_obj:
             try:
                 
                 x = requests.post(url, json=myobj,timeout=3)
+                sleep(500)
+                print("slept 8 minutes")
             except:
-                print("slept 16 minutes")
-                sleep(1000)
+                print("error")
+                #sleep(5)
             #print(x.text)
     ndate = date_time_obj + datetime.timedelta(days=1)
     print(str(ndate)[0:10])
