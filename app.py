@@ -29,7 +29,7 @@ while date_time_obj < enddate_obj:
 
         for t in type:
             #skip >
-            if (str(date_time_obj)[0:10] == '2023-01-23' and r == 30 and t == ''):
+            if (str(date_time_obj)[0:10] == '2023-01-23' and r == 30 and (t == '' or t == 'stb')):
                 continue
             #>skip
             myobj = {"range": r, "type": t, "start": str(date_time_obj)[0:10]}
